@@ -42,7 +42,7 @@
   }
 
 ?>
-  <div class="row" style='position:relative; border:1px solid #ddd; border-radius:4px; padding:4px;' >
+  <div id="infoProducto" class="row" style='position:relative; border:1px solid #ddd; border-radius:4px; padding:4px;' >
       <?php
         if("normal" == $state || "exclusive" == $state){
           echo $producto->getHtml();
@@ -82,7 +82,7 @@
 
   $bottomScripts = array();
   $bottomScripts[] = "modalDomProducto.js";
-
+  $bottomScripts[] = "loadProducto.js";
   if ("normal" == $state){
     include("./include/footer.php");
   }else if("popup" == $state){
