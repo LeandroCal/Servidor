@@ -28,8 +28,18 @@ class Carrito
       self::__construct();
     }
     public function howMany(){
-      return count($_SESSION['carrito']);
+      return array_sum($_SESSION['carrito']);
     }
+    public function itemExists($id){
+        return isset($_SESSION['carrito'][$id]);
+    }
+    public function getItemCount($id){
+      if (!$this->itemExists($id))
+        return 0;
+      else
+        return $_SESSION['carrito'][$id];
+    }
+    
     public function precioFinal(){
       $precioFinal = 0;
       if ($this->howMany() > 0){
