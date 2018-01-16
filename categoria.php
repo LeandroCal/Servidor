@@ -26,8 +26,6 @@
   }
   $title = "Smartphone's el Caminàs -> " . $categoria["nombre"];
 
-
-
   require './include/JasonGrimes/Paginator.php';
 
   use JasonGrimes\Paginator;
@@ -42,24 +40,42 @@
   // $statement->execute();
 
   $totalItems = $productos->getCountProductosByCategoria($_GET["id"]);
-  include("./include/header.php");
+  $state = "normal";
+  if (isset($_GET["state"])){
+    $state = $_GET["state"];
+  }
+  if ("normal" == $state){
+    include("./include/header.php");
+  }elseif("exclusive" == $state){
+    /** en estado exclusive no carga el header ni footer porque carga los productos asíncronos
+    */
+  }
 ?>
-  <div class="row">
-    <h2 class='subtitle'><?php echo $categoria["nombre"];?></h2>
-    <?php
-    foreach($productos->getProductosByCategoria($_GET["id"], $itemsPerPage, $currentPage) as $producto){
-       echo $producto->getThumbnailHtml();
-    }
-    ?>
+<?php if ("normal" == $state):?>
+  <h2 class='subtitle' style='margin-left:0; margin-right:0;'><?php echo $categoria["nombre"];?></h2>
+  <div id="data-container">
+<?php endif; ?>
+    <div class="row">
+      <?php
+      foreach($productos->getProductosByCategoria($_GET["id"], $itemsPerPage, $currentPage) as $producto){
+         echo $producto->getThumbnailHtml();
+      }
+      ?>
+    </div>
+
+    <div class="row">
+      <?php
+      $urlPattern ="./categoria.php?id=" . $_GET["id"] . "&itemsPerPage=$itemsPerPage&currentPage=(:num)";
+      $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
+      //echo $paginator->toHtml();
+      include './include/JasonGrimes/examples/pager.phtml';
+      ?>
+    </div>
+
+  <?php if ("normal" == $state):?>
   </div>
-  <div class="row">
-    <?php
-    $urlPattern = "./categoria.php?id=" . $_GET["id"] . "&itemsPerPage=$itemsPerPage&currentPage=(:num)";
-    $paginator = new Paginator($totalItems, $itemsPerPage, $currentPage, $urlPattern);
-    //echo $paginator->toHtml();
-    include './include/JasonGrimes/examples/pager.phtml';
-    ?>
-  </div>
+  <?php endif; ?>
+
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
@@ -75,7 +91,11 @@
   </div>
 
   <?php
+  if ("normal" == $state){
     $bottomScripts = array();
     $bottomScripts[] = "modalDomProducto.js";
+    $bottomScripts[] = "loadCategorias.js";
     include("./include/footer.php");
+  }
+
 ?>
