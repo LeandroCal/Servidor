@@ -12,7 +12,6 @@
   $carrito = new Carrito();
   //Falta comprobar qué acción: add, delete, empty
 
-
   $action = "view";
   if (($_SERVER["REQUEST_METHOD"] == "POST")){
     //Por javascript siempre llamamos con método POST
