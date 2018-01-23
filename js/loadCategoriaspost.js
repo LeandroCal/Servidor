@@ -52,4 +52,6 @@ function attachCarro(){
     );
   });
 }
-attachCarro();
+$('document').ready(function(){
+    attachCarro();
+});

@@ -69,7 +69,10 @@
     </div>
   </div>
 
+
+
 <?php
+
 $bottomScripts = array();
 $bottomScripts[] = "modalIframeProducto.js";
 include("./include/footer.php");

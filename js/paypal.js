@@ -19,7 +19,7 @@ paypal.Button.render({
             payment: {
                 transactions: [
                     {
-                        amount: { total: '', currency: 'EUR' }
+                        amount: { total: '<?php echo $carrito->precioFinal(); ?>', currency: 'EUR' }
                     }
                 ]
             }

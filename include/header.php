@@ -37,7 +37,7 @@
 
     </style>
 
-    <script src="https://www.paypalobjects.com/api/checkout.js"></script>
+    
 
 </head>
 

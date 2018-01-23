@@ -23,7 +23,7 @@
 
 <!-- Bootstrap Core JavaScript -->
 <script src="<?php echo SCRIPTSPATH; ?>bootstrap.min.js"></script>
-
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script src="<?php echo SCRIPTSPATH; ?>paypal.js"></script>
 
 <?php if (isset($bottomScripts)): ?>
